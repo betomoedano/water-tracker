@@ -10,7 +10,11 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.betoatexpo.water-tracker"
+      "bundleIdentifier": "com.betoatexpo.water-tracker",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "appleTeamId": "T2A8YY9YDW"
     },
     "android": {
       "adaptiveIcon": {
@@ -39,6 +43,27 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "bundleIdentifier": "com.betoatexpo.water-tracker.watch",
+                  "targetName": "watch",
+                  "entitlements": {}
+                }
+              ]
+            }
+          }
+        },
+        "projectId": "147d60b0-7ea3-4fdf-8cde-958113711f39"
+      }
     }
   }
 }

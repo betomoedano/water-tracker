@@ -1,6 +1,9 @@
 import ExpoModulesCore
+import WatchConnectivity
 
 public class ExpoWatchConnectivityModule: Module {
+  private var watchDelegate: WatchConnectivityDelegate?
+  
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
   // See https://docs.expo.dev/modules/module-api for more details about available components.
@@ -10,17 +13,32 @@ public class ExpoWatchConnectivityModule: Module {
     // The module will be accessible from `requireNativeModule('ExpoWatchConnectivity')` in JavaScript.
     Name("ExpoWatchConnectivity")
     
+    // Initialize WatchConnectivity when module is created
+    OnCreate {
+      self.watchDelegate = WatchConnectivityDelegate(module: self)
+    }
+    
     // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
     Constants([
       "PI": Double.pi
     ])
     
     // Defines event names that the module can send to JavaScript.
-    Events("onChange")
+    Events("onChange", "onSessionStateChange")
     
     // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
     Function("hello") {
       return "Hello world! 👋"
+    }
+    
+    Function("isReachable") {
+      var isReachable: Bool = false
+      
+      if WCSession.default.activationState == .activated {
+        isReachable = WCSession.default.isReachable
+      }
+      
+      return isReachable
     }
     
     // Defines a JavaScript function that always returns a Promise and whose native code
@@ -33,4 +51,5 @@ public class ExpoWatchConnectivityModule: Module {
     }
     
   }
+  
 }

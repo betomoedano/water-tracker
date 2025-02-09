@@ -5,7 +5,8 @@ module.exports = (config) => ({
   colors: { $accent: "darkcyan" },
   deploymentTarget: "9.4",
   entitlements: {
-    /* Add entitlements */
+    "com.apple.security.application-groups":
+      config.ios.entitlements["com.apple.security.application-groups"],
   },
   name: "Water Tracker",
   appleTeamId: "T2A8YY9YDW",
